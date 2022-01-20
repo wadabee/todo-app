@@ -1,0 +1,16 @@
+datasource db {
+  // url      = env("DATABASE_URL")
+  url      = "postgres://admin:admin@db:5432/todo?schema=public"
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+}
