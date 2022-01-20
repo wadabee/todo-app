@@ -1,0 +1,30 @@
+version: "3"
+services:
+  api:
+    # image: node:14-alpine
+    build: .
+    container_name: "api"
+    ports:
+      - 3000:3000
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app:ro
+      - ./node_modules
+    command: "npm start"
+  db:
+    image: postgres:11.4-alpine
+    container_name: "db"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+
+volumes:
+  db_volume:
+    driver: local
+
+    
