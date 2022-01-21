@@ -43,6 +43,19 @@ app.get('/users/db', async(req: express.Request, res: express.Response) => {
     res.send(JSON.stringify(users))
 })
 
+type PathParams = {
+    userId: string;
+}
+app.get('/users/db/:userId', async(req: express.Request<PathParams>, res: express.Response) => {
+    const users = await prisma.user.findFirst({
+        where: {
+            id : Number.parseInt(req.params.userId)
+        }
+    })
+    await prisma.$disconnect()
+    res.send(JSON.stringify(users))
+})
+
 type BodyType = {
     name: string;
 }
