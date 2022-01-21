@@ -43,10 +43,13 @@ app.get('/users/db', async(req: express.Request, res: express.Response) => {
     res.send(JSON.stringify(users))
 })
 
-app.post('/users/db', async(req: express.Request, res: express.Response) => {
+type BodyType = {
+    name: string;
+}
+app.post('/users/db', async(req: express.Request<any,any,BodyType>, res: express.Response) => {
     const users = await prisma.user.create({
         data:{
-            email: 'test1'
+            name: req.body.name
         }
     })
     await prisma.$disconnect()

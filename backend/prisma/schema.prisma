@@ -1,6 +1,5 @@
 datasource db {
-  // url      = env("DATABASE_URL")
-  url      = "postgres://admin:admin@db:5432/todo?schema=public"
+  url      = env("DATABASE_URL")
   provider = "postgresql"
 }
 
@@ -11,6 +10,6 @@ generator client {
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+  // email     String   @unique
+  name      String
 }
