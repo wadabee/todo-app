@@ -1,4 +1,15 @@
-# 
+# バックエンド
+
+## 技術スタック
+### 開発技術
+* TypeScript
+* Express：Webアプリケーションフレームワーク
+* Prisma：ORM + DB Migration
+* nodemon：ホットリロード用
+
+### 実行環境
+* Docker + Docker Compose
+* PostgreSQL
 
 ## Dockerの操作
 * 環境の起動
