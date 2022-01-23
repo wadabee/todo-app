@@ -1,6 +1,7 @@
 import {Router} from 'express'
 import express from 'express'
 import { PrismaClient } from '@prisma/client';
+import UserService from '../../services/users';
 
 const usersRouter = Router()
 
@@ -24,8 +25,7 @@ const prisma = new PrismaClient({})
 
 //一覧取得
 usersRouter.get('', async(req: express.Request, res: express.Response) => {
-    const users = await prisma.user.findMany()
-    await prisma.$disconnect()
+    const users = await UserService.getAllUsers()
     res.send(JSON.stringify(users))
 })
 
@@ -33,12 +33,7 @@ type PathParams = {
     userId: string;
 }
 usersRouter.get('/:userId', async(req: express.Request<PathParams>, res: express.Response) => {
-    const users = await prisma.user.findFirst({
-        where: {
-            id : Number.parseInt(req.params.userId)
-        }
-    })
-    await prisma.$disconnect()
+    const users = await UserService.getUserById(Number.parseInt(req.params.userId))
     res.send(JSON.stringify(users))
 })
 
@@ -46,12 +41,7 @@ type BodyType = {
     name: string;
 }
 usersRouter.post('', async(req: express.Request<any,any,BodyType>, res: express.Response) => {
-    const users = await prisma.user.create({
-        data:{
-            name: req.body.name
-        }
-    })
-    await prisma.$disconnect()
+    const users = await UserService.createUser(req.body.name)
     res.send(JSON.stringify(users))
 })
 
