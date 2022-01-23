@@ -38,10 +38,10 @@ npx prisma migrate dev --name some_message
 curl -X GET http://localhost:3000/users/static
 
 # DBのユーザデータ取得
-curl -X GET http://localhost:3000/users/db
+curl -X GET http://localhost:3000/users
 
 # DBにユーザデータ追加
-curl -d "name=someName" -X POST http://localhost:3000/users/db
+curl -d "name=someName" -X POST http://localhost:3000/users
 
 ```
 
