@@ -11,7 +11,9 @@ services:
     working_dir: /home/node/app
     volumes:
       - ./:/home/node/app:ro
-      - ./node_modules
+      # - /home/node/app/node_modules
+    depends_on:
+      - db
     command: "npm start"
   db:
     image: postgres:11.4-alpine
