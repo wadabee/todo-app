@@ -1,8 +1,8 @@
-import {Router} from 'express'
-import usersRouter from './api/users';
+import { Router } from "express";
+import usersRouter from "./api/users";
 
-const router = Router()
+const router = Router();
 
-router.use('/users', usersRouter )
+router.use("/users", usersRouter);
 
 export default router;
