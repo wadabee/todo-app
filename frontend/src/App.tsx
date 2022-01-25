@@ -1,10 +1,18 @@
 import React from 'react';
 import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
+import AppBarMain from './components/AppBarMain';
+import AppDrawer from './components/AppDrawer';
+import { DrawerProvider } from './providers/drawer';
 
 function App() {
   return (
     <div className="App">
+      <DrawerProvider>
+        <AppBarMain />
+        <AppDrawer />
+      </DrawerProvider>
+
       <h1>Welcome to React Router!</h1>
       <Routes>
         <Route path="/" element={<Home />} />
