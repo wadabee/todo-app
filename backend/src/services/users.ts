@@ -1,4 +1,4 @@
-import UserRepo from "../repository/users";
+import UserRepo from '../repository/users';
 
 const UserService = {
   getAllUsers: () => {

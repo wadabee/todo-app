@@ -1,4 +1,4 @@
-import { prisma } from "./utils";
+import { prisma } from './utils';
 
 const UserRepo = {
   getAllUsers: () => {
