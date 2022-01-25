@@ -1,30 +1,22 @@
-import { Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
 import useDrawer from '../hooks/useDrawer';
+import { useNavigate } from 'react-router-dom';
 
 const AppDrawer = () => {
+  const navigate = useNavigate();
   const { isShowDrawer, hideDrawer } = useDrawer();
 
   return (
     <Drawer anchor="left" open={isShowDrawer} onClose={hideDrawer}>
       <Box sx={{ width: 250 }} role="presentation" onClick={hideDrawer} onKeyDown={hideDrawer}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button onClick={() => navigate('examples')}>
+            <ListItemIcon>
+              <StickyNote2Icon />
+            </ListItemIcon>
+            <ListItemText primary="Examples" />
+          </ListItem>
         </List>
       </Box>
     </Drawer>
