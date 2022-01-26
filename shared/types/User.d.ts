@@ -3,3 +3,7 @@ export type User = {
   createdAt: string;
   name: string;
 };
+
+export type UserPostParams = {
+  name: string;
+};

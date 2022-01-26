@@ -5,8 +5,13 @@ const useUser = () => {
     return UserApi.getAllUsers();
   };
 
+  const registerUser = (name: string) => {
+    return UserApi.createUser(name);
+  };
+
   return {
     getAllUsers,
+    registerUser,
   };
 };
 

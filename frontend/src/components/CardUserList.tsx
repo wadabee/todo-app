@@ -1,8 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
-import { User } from '@shared/types/User';
 import React from 'react';
 import useUser from 'src/hooks/useUser';
-import useSWR from 'swr';
 
 export const CardUserList: React.FC = () => {
   const { getAllUsers } = useUser();
@@ -15,7 +13,7 @@ export const CardUserList: React.FC = () => {
           ユーザ一覧取得
         </Typography>
 
-        <Typography variant="h5" component="div">
+        <Typography variant="h6" component="div">
           {!data ? 'データ未取得' : JSON.stringify(data)}
           {error ? 'エラー' : ''}
         </Typography>
