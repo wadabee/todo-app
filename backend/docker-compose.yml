@@ -10,11 +10,9 @@ services:
       DATABASE_URL: postgres://admin:admin@db:5432/todo?schema=public
     working_dir: /home/node/app
     volumes:
-      - ./:/home/node/app:ro
+      - ./:/home/node/app
       # - /home/node/app/node_modules
-    depends_on:
-      - db
-    command: "npm start"
+    command: "npm run dev"
   db:
     image: postgres:11.4-alpine
     container_name: "db"

@@ -4,9 +4,9 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   // M1 Macは以下の設定が必要
-  // binaryTargets = ["native", "linux-musl", "linux-arm64-openssl-1.1.x"]
+  binaryTargets = ["native", "linux-musl", "linux-arm64-openssl-1.1.x"]
 }
 
 model User {
