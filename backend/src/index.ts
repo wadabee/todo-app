@@ -1,5 +1,4 @@
 import express from 'express';
-import router from './routers';
 import { RegisterRoutes } from '../build/routes';
 import swaggerUi from 'swagger-ui-express';
 import redoc from 'redoc-express';
@@ -47,5 +46,3 @@ app.get(
 app.listen(3000, () => {
   console.log('Start on port 3000.');
 });
-
-// app.use(router);

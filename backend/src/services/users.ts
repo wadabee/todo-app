@@ -1,16 +1,16 @@
 import UserRepo from '../repository/users';
 
-const UserService = {
-  getAllUsers: () => {
+class UserService {
+  public getAllUsers() {
     return UserRepo.getAllUsers();
-  },
+  }
 
-  getUserById: (id: number) => {
+  public getUserById(id: number) {
     return UserRepo.getUserById(id);
-  },
+  }
 
-  createUser: (name: string) => {
+  public createUser(name: string) {
     return UserRepo.createUser(name);
-  },
-};
+  }
+}
 export default UserService;
