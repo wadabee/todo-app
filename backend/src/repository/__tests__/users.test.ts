@@ -6,7 +6,7 @@ describe('UserRepo', () => {
   const { getAllUsers } = UserRepo;
   describe('getAllUsers', () => {
     test('全ユーザが取得されること', async () => {
-      await expect(getAllUsers()).resolves.toEqual('');
+      await expect(getAllUsers()).resolves.toEqual([]);
     });
   });
 });
