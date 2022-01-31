@@ -40,5 +40,8 @@
     "redoc-express": "^1.0.0",
     "swagger-ui-express": "^4.3.0",
     "tsoa": "^3.14.1"
-  }
+  },
+    "eslintIgnore": [
+    "/jest.config.ts"
+  ]
 }
