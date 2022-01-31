@@ -31,6 +31,7 @@ describe('UserRepo', () => {
 
   describe('createUser', () => {
     test('ユーザが登録できること', async () => {
+      console.log(await getAllUsers());
       const actual = await createUser('test3');
       expect(actual.id).toBeDefined();
       expect(actual.createdAt).toBeDefined();
