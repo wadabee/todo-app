@@ -8,8 +8,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@shared/*":[
-        "../shared/*"
+      "@backend/types/*":[
+        "../backend/src/types/*"
       ]
     },
     "allowJs": true,
