@@ -2,7 +2,13 @@ import { prisma } from './utils';
 
 const UserRepo = {
   getAllUsers: () => {
-    return prisma.user.findMany();
+    return prisma.user.findMany({
+      orderBy: [
+        {
+          id: 'asc',
+        },
+      ],
+    });
   },
 
   getUserById: (id: number) => {

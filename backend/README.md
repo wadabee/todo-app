@@ -98,3 +98,46 @@ curl -X GET http://localhost:8000/users
 curl -d "name=someName" -X POST http://localhost:8000/users
 
 ```
+
+## テストについて
+
+### テストの事前準備
+npmのグローバル領域にCLIをインストール  
+※環境情報の切り替えを実施
+```bash
+npm install -g dotenv-cli
+```
+
+### テスト方針
+* APIテストはDBを利用して実施する（APIの実行結果を担保）
+* RepositoryのテストはDBを利用して実施する（意図しているDB操作ができていることを担保）
+* その他のテストはMockを活用しUnitレベルで確認  
+
+### 各テストの実行方法
+APIとRepositoryのテストは、Docker-ComposeによるDBの起動が必要なので注意。  
+PrismaのGenerate処理が失敗する場合は、`docker-compose down`でDBを初期化すること。  
+DBはVolumeを利用していないため、コンテナを削除する度に削除されるので注意。  
+
+```bash
+# テスト用のDB起動
+# ※あらかじめDBを起動しておくことでテストの実行速度が速くなる
+npm run docker:up:test
+
+# テスト用DBの初期化
+npm run docker:restart:test
+
+# 全てのテストを実行
+npm run test:all
+
+# DBを利用しないUnitテストを実行
+npm run test:unit
+
+# Repositoryのテストを実行
+# DBを初期化してから実行（遅いので注意）
+npm run test:repo:db
+# DBを初期化せずに実行（あらかじめDBを起動しておくこと）
+npm run test:repo
+```
+
+
+
