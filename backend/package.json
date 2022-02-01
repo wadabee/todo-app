@@ -10,12 +10,10 @@
     "start": "node build/src/server.js",
     "docker:up:test": "docker-compose -f docker-compose.test.yml up -d && dotenv -e .env.test -- npx prisma db push",
     "docker:restart:test": "docker-compose down && npm run docker:up:test",
-    "test:all": "npm run docker:up:test && dotenv -e .env.test -- jest -i",
+    "test:all": "dotenv -e .env.test -- jest -i",
     "test:unit": "jest --testPathIgnorePatterns \".*repository.*|.*controllers.*\"",
     "test:repo": "dotenv -e .env.test -- jest --testPathPattern \".*repository.*\" -i",
-    "test:repo:db": "npm run docker:restart:test && npm run test:repo",
-    "test:api": "dotenv -e .env.test -- jest --testPathPattern \".*controllers.*\" -i",
-    "test:api:db": "npm run docker:restart:test && npm run test:api"
+    "test:api": "dotenv -e .env.test -- jest --testPathPattern \".*controllers.*\" -i"
   },
   "keywords": [],
   "author": "",

@@ -16,6 +16,10 @@
 - Docker + Docker Compose
 - PostgreSQL
 
+### テスト
+- Jest：テスティングフレームワーク
+- Supertest：APIテスト用
+
 ## API ドキュメント
 
 開発環境を起動し、以下の URL へアクセス。  
@@ -120,23 +124,25 @@ DBはVolumeを利用していないため、コンテナを削除する度に削
 
 ```bash
 # テスト用のDB起動
-# ※あらかじめDBを起動しておくことでテストの実行速度が速くなる
+# DBマイグレーションでエラーになったら再度実行（DB起動が間に合っていない）
 npm run docker:up:test
 
 # テスト用DBの初期化
 npm run docker:restart:test
 
-# 全てのテストを実行
+# 実行時間：Unit < Repo < API < ALL
+# 全てのテストを実行（あらかじめDBを起動しておくこと）
 npm run test:all
 
 # DBを利用しないUnitテストを実行
 npm run test:unit
 
-# Repositoryのテストを実行
-# DBを初期化してから実行（遅いので注意）
-npm run test:repo:db
-# DBを初期化せずに実行（あらかじめDBを起動しておくこと）
+# Repositoryのテストを実行（あらかじめDBを起動しておくこと）
 npm run test:repo
+
+# APIのテストを実行（あらかじめDBを起動しておくこと）
+npm run test:api
+
 ```
 
 
