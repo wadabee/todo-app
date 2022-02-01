@@ -31,13 +31,16 @@ describe('UserRepo', () => {
 
   describe('createUser', () => {
     test('ユーザが登録できること', async () => {
-      console.log(await getAllUsers());
       const actual = await createUser('test3');
       expect(actual.id).toBeDefined();
       expect(actual.createdAt).toBeDefined();
       expect(actual.name).toBe('test3');
 
-      const finded = await getUserById(actual.id);
+      const finded = await prisma.user.findUnique({
+        where: {
+          id: actual.id,
+        },
+      });
       expect(actual).toEqual(finded);
     });
   });
