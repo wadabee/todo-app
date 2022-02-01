@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material';
-import CardUserCreate from 'src/components/CardUserCreate';
-import CardUserList from 'src/components/CardUserList';
+import CardUserCreate from 'src/components/User/CardUserCreate';
+import CardUserList from 'src/components/User/CardUserList';
 
 const Examples: React.FC = () => {
   return (

@@ -1,5 +1,6 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
+import Loading from 'src/components/Loading';
 import useUser from 'src/hooks/useUser';
 
 export const CardUserList: React.FC = () => {
@@ -13,9 +14,8 @@ export const CardUserList: React.FC = () => {
           ユーザ一覧取得
         </Typography>
 
-        <Typography variant="h6" component="div">
-          {!data ? 'データ未取得' : JSON.stringify(data)}
-          {error ? 'エラー' : ''}
+        <Typography variant="h6" component="div" align="center">
+          {!data ? <Loading /> : JSON.stringify(data)}
         </Typography>
       </CardContent>
     </Card>
