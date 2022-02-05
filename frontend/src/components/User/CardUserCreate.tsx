@@ -1,15 +1,33 @@
-import { Card, CardContent, Grid, Stack, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import {
+  Alert,
+  Card,
+  CardContent,
+  Grid,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import useAlert from 'src/hooks/useAlert';
 import useUser from 'src/hooks/useUser';
 import BtnRegister from '../BtnRegister';
 
 export const CardUserCreate: React.FC = () => {
   const { registerUser } = useUser();
+  const { openAlert } = useAlert();
 
   const [userName, setUserName] = useState('');
 
-  const handlerRegister = () => {
-    registerUser(userName);
+  const canRegister = useMemo<boolean>(() => {
+    return userName !== '';
+  }, [userName]);
+
+  const handleRegister = () => {
+    registerUser(userName).then((data) => {
+      setUserName('');
+      openAlert('ユーザを登録しました');
+    });
   };
 
   return (
@@ -28,7 +46,7 @@ export const CardUserCreate: React.FC = () => {
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
-              <BtnRegister onClick={handlerRegister} />
+              <BtnRegister disabled={!canRegister} onClick={handleRegister} />
             </Stack>
           </Grid>
         </Grid>
