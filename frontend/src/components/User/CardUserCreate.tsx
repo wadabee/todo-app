@@ -26,7 +26,7 @@ export const CardUserCreate: React.FC = () => {
   const handleRegister = () => {
     registerUser(userName).then((data) => {
       setUserName('');
-      openAlert('ユーザを登録しました');
+      openAlert('ユーザを登録しました', 'success');
     });
   };
 

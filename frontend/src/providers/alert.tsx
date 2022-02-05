@@ -8,6 +8,7 @@ export type AlertContextType = {
 const initialState: AlertState = {
   isOpen: false,
   message: '',
+  severity: 'info',
 };
 
 export const AlertContext = createContext({} as AlertContextType);
