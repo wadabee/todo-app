@@ -1,8 +1,14 @@
+import { User } from '@backend/types/User';
 import UserApi from 'src/api/User';
+import { mutate } from 'swr';
 
 const useUser = () => {
   const getAllUsers = () => {
     return UserApi.getAllUsers();
+  };
+
+  const mutateUsers = (user: User) => {
+    return mutate<User[]>('/users', [user]);
   };
 
   const registerUser = (name: string) => {
@@ -15,6 +21,7 @@ const useUser = () => {
 
   return {
     getAllUsers,
+    mutateUsers,
     registerUser,
     searchUserById,
   };

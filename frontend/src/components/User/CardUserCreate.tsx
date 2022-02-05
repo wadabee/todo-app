@@ -14,7 +14,7 @@ import useUser from 'src/hooks/useUser';
 import BtnRegister from '../BtnRegister';
 
 export const CardUserCreate: React.FC = () => {
-  const { registerUser } = useUser();
+  const { registerUser, mutateUsers } = useUser();
   const { openAlert } = useAlert();
 
   const [userName, setUserName] = useState('');
@@ -26,7 +26,8 @@ export const CardUserCreate: React.FC = () => {
   const handleRegister = () => {
     registerUser(userName).then((data) => {
       setUserName('');
-      openAlert('ユーザを登録しました', 'success');
+      openAlert(`ユーザID:${data.id}で登録しました`, 'success');
+      mutateUsers(data);
     });
   };
 

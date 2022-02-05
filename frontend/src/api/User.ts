@@ -1,6 +1,6 @@
 import { User, UserPostParams } from '@backend/types/User';
 import { AxiosError } from 'axios';
-import useSWR, { mutate } from 'swr';
+import useSWR from 'swr';
 import { fetcher, ApiResponse, post } from './ApiUtils';
 
 const UserApi = {
@@ -10,9 +10,7 @@ const UserApi = {
   },
 
   createUser: (name: string) => {
-    return mutate('/users', () => {
-      return post<UserPostParams, User>('/users', { name: name });
-    });
+    return post<UserPostParams, User>('/users', { name: name });
   },
 
   searchUserById: (id: number | undefined): ApiResponse<User> => {
