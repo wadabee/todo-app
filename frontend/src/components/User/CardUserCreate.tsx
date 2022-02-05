@@ -38,7 +38,7 @@ export const CardUserCreate: React.FC = () => {
         </Typography>
 
         <Grid sx={{ m: 3 }} container justifyContent="center">
-          <Grid item md={6}>
+          <Grid item xs={6}>
             <Stack direction="column" spacing={2}>
               <TextField
                 label="ユーザ名"

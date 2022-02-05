@@ -9,9 +9,14 @@ const useUser = () => {
     return UserApi.createUser(name);
   };
 
+  const searchUserById = (id: number | undefined) => {
+    return UserApi.searchUserById(id);
+  };
+
   return {
     getAllUsers,
     registerUser,
+    searchUserById,
   };
 };
 

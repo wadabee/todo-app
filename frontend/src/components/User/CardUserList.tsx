@@ -26,7 +26,7 @@ export const CardUserList: React.FC = () => {
             <Grid container direction="row" spacing={3}>
               {data.map
                 ? data.map((user) => (
-                    <Grid key={user.id} item md={3}>
+                    <Grid key={user.id} item xs={6} sm={4}>
                       <CardUser user={user} />
                     </Grid>
                   ))

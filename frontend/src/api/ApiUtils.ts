@@ -12,5 +12,8 @@ const axios_ = axios.create({
 export const fetcher = (url: string, cfg: AxiosRequestConfig | undefined = undefined) =>
   axios_.get(url, cfg).then((res) => res.data);
 
-export const post = <T>(url: string, data: T, cfg: AxiosRequestConfig | undefined = undefined) =>
-  axios_.post(url, data, cfg).then((res) => res.data);
+export const post = <T, R = any>(
+  url: string,
+  data: T,
+  cfg: AxiosRequestConfig | undefined = undefined,
+): Promise<R> => axios_.post(url, data, cfg).then((res) => res.data);

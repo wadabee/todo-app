@@ -11,8 +11,13 @@ const UserApi = {
 
   createUser: (name: string) => {
     return mutate('/users', () => {
-      return post<UserPostParams>('/users', { name: name });
+      return post<UserPostParams, User>('/users', { name: name });
     });
+  },
+
+  searchUserById: (id: number | undefined): ApiResponse<User> => {
+    const { data, error } = useSWR<User, AxiosError<User>>(id ? `/users/${id}` : null, fetcher);
+    return { data, error };
   },
 };
 
