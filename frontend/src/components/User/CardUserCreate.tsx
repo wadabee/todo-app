@@ -1,6 +1,7 @@
-import { Box, Button, Card, CardContent, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Card, CardContent, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import useUser from 'src/hooks/useUser';
+import BtnRegister from '../BtnRegister';
 
 export const CardUserCreate: React.FC = () => {
   const { registerUser } = useUser();
@@ -27,9 +28,7 @@ export const CardUserCreate: React.FC = () => {
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
-              <Button variant="contained" onClick={handlerRegister}>
-                登録
-              </Button>
+              <BtnRegister onClick={handlerRegister} />
             </Stack>
           </Grid>
         </Grid>
