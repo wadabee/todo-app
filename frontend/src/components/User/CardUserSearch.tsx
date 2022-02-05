@@ -1,24 +1,13 @@
 import { Alert, Card, CardContent, Grid, Stack, TextField, Typography } from '@mui/material';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import useUser from 'src/hooks/useUser';
-import BtnSearch from '../BtnSearch';
 import CardUser from './CardUser';
 
 export const CardUserSearch: React.FC = () => {
   const { searchUserById } = useUser();
 
   const [userId, setUserId] = useState<number>();
-  const [searchUserId, setSearchUserId] = useState<number>();
-
   const { data, error } = searchUserById(userId);
-
-  const canSearch = useMemo<boolean>(() => {
-    return userId !== undefined;
-  }, [userId]);
-
-  const handleSearch = () => {
-    setSearchUserId(userId);
-  };
 
   return (
     <Card>
