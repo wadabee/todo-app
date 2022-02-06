@@ -1,31 +1,18 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from '@mui/material';
-import GridViewIcon from '@mui/icons-material/GridView';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Loading from 'src/components/Loading';
 import useUser from 'src/hooks/useUser';
 import GridUserCard from './GridUserCard';
 import TableUserList from './TableUserList';
+import ToggleBtnListView, { ViewMode } from '../ToggleBtnListView';
 
 export const CardUserList: React.FC = () => {
   const { getAllUsers } = useUser();
   const { data, error } = getAllUsers();
 
-  type ViewMode = 'grid' | 'list';
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
-
-  const handleChangeView = (e: React.MouseEvent<HTMLElement>, newVal: ViewMode | null) => {
-    if (newVal !== null) {
-      setViewMode(newVal);
-    }
+  const handleChangeView = (newVal: ViewMode) => {
+    setViewMode(newVal);
   };
 
   return (
@@ -39,20 +26,7 @@ export const CardUserList: React.FC = () => {
           </Grid>
 
           <Grid item>
-            <ToggleButtonGroup
-              value={viewMode}
-              color="primary"
-              exclusive
-              onChange={handleChangeView}
-              aria-label="text alignment"
-            >
-              <ToggleButton value="grid" aria-label="left aligned">
-                <GridViewIcon />
-              </ToggleButton>
-              <ToggleButton value="list" aria-label="centered">
-                <ListAltIcon />
-              </ToggleButton>
-            </ToggleButtonGroup>
+            <ToggleBtnListView value={viewMode} onChange={handleChangeView} />
           </Grid>
         </Grid>
 
