@@ -5,8 +5,15 @@ export type ApiResponse<T, D = any> = {
   error: AxiosError<T, D> | undefined;
 };
 
+let baseURL: string = '';
+if (process.env.REACT_APP_USE_MOCK === 'true') {
+  baseURL = '';
+} else {
+  baseURL = 'http://localhost:8000';
+}
+
 const axios_ = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: baseURL,
 });
 
 export const fetcher = (url: string, cfg: AxiosRequestConfig | undefined = undefined) =>

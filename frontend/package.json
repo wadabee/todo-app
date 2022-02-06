@@ -29,6 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "mock": "cross-env REACT_APP_USE_MOCK=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -54,8 +55,13 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.28.0",
+    "msw": "^0.36.8",
     "prettier": "^2.5.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
