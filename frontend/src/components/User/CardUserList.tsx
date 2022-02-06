@@ -12,7 +12,8 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import React, { useState } from 'react';
 import Loading from 'src/components/Loading';
 import useUser from 'src/hooks/useUser';
-import CardUser from './CardUser';
+import GridUserCard from './GridUserCard';
+import TableUserList from './TableUserList';
 
 export const CardUserList: React.FC = () => {
   const { getAllUsers } = useUser();
@@ -20,6 +21,12 @@ export const CardUserList: React.FC = () => {
 
   type ViewMode = 'grid' | 'list';
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
+
+  const handleChangeView = (e: React.MouseEvent<HTMLElement>, newVal: ViewMode | null) => {
+    if (newVal !== null) {
+      setViewMode(newVal);
+    }
+  };
 
   return (
     <Card>
@@ -34,8 +41,9 @@ export const CardUserList: React.FC = () => {
           <Grid item>
             <ToggleButtonGroup
               value={viewMode}
+              color="primary"
               exclusive
-              onChange={(e, newVal) => setViewMode(newVal)}
+              onChange={handleChangeView}
               aria-label="text alignment"
             >
               <ToggleButton value="grid" aria-label="left aligned">
@@ -55,20 +63,10 @@ export const CardUserList: React.FC = () => {
                 <Loading />
               </Grid>
             </Grid>
+          ) : viewMode === 'grid' ? (
+            <GridUserCard users={data} />
           ) : (
-            <Grid container direction="row" spacing={3}>
-              {data.map
-                ? data.map((user) =>
-                    viewMode === 'grid' ? (
-                      <Grid key={user.id} item xs={6} sm={4}>
-                        <CardUser user={user} />
-                      </Grid>
-                    ) : (
-                      user.name
-                    ),
-                  )
-                : ''}
-            </Grid>
+            <TableUserList users={data} />
           )}
         </Box>
       </CardContent>
