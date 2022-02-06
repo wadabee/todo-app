@@ -17,6 +17,13 @@ const AppDrawer = () => {
             </ListItemIcon>
             <ListItemText primary="Examples" />
           </ListItem>
+
+          <ListItem button onClick={() => navigate('mock-register')}>
+            <ListItemIcon>
+              <StickyNote2Icon />
+            </ListItemIcon>
+            <ListItemText primary="登録画面モックアップ" />
+          </ListItem>
         </List>
       </Box>
     </Drawer>

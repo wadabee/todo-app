@@ -8,6 +8,7 @@ import Todo from './pages/Todo';
 import Examples from './pages/Examples';
 import { AlertProvider } from './providers/alert';
 import SnackbarAlert from './components/SnackbarAlert';
+import MockRegister from './pages/MockRegister';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Todo />} />
           <Route path="examples" element={<Examples />} />
+          <Route path="mock-register" element={<MockRegister />} />
         </Routes>
       </AlertProvider>
     </div>
