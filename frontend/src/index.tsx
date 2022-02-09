@@ -4,15 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { SetupWorkerApi } from 'msw';
+import { SetupWorkerApi, StartOptions } from 'msw';
 
 if (process.env.REACT_APP_USE_MOCK === 'true') {
   const { worker } = require('./mocks/browser') as { worker: SetupWorkerApi };
-  worker.start({
-    serviceWorker: {
-      url: 'https://wadabee.github.io/todo-app/mockServiceWorker.js',
-    },
-  });
+  let options: StartOptions = {};
+
+  if (process.env.RESCT_APP_GH_PAGES === 'true') {
+    options = {
+      serviceWorker: {
+        url: 'https://wadabee.github.io/todo-app/mockServiceWorker.js',
+      },
+    };
+  }
+  worker.start(options);
 }
 
 ReactDOM.render(

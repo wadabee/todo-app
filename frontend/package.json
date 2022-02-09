@@ -32,6 +32,7 @@
     "start": "react-scripts start",
     "mock": "cross-env REACT_APP_USE_MOCK=true react-scripts start",
     "build": "react-scripts build",
+    "build:gh": "cross-env RESCT_APP_GH_PAGES=true REACT_APP_USE_MOCK=true react-scripts build",
     "build:mock": "cross-env REACT_APP_USE_MOCK=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
