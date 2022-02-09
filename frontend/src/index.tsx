@@ -12,7 +12,7 @@ if (process.env.REACT_APP_USE_MOCK === 'true') {
       options: {
         // Narrow the scope of the Service Worker to intercept requests
         // only from pages under this path.
-        scope: '/todo-app',
+        scope: '/todo-app/',
       },
     },
   });
