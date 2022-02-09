@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# フロントエンド
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 技術スタック
 
-## Available Scripts
+### 開発技術
 
-In the project directory, you can run:
+- TypeScript
+- React：フロントエンドフレームワーク
+- MUI：マテリアルデザインのフレームワーク
+- axios：HTTP クライアント
+- SWR：データ取得用ライブラリ（axios と組み合わせて利用）
+- AG Grid：データテーブルライブラリ
+- MSW：モック用ライブラリ
 
-### `npm start`
+### 実行環境
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### テスト
 
-### `npm test`
+- Jest：テスティングフレームワーク
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 開発環境作成
 
-### `npm run build`
+### 前提条件
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+以下がインストールされていること。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js（nvm 経由でのインストールを推奨）
+  ※Windows の場合は WSL2 推奨
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 初期設定
 
-### `npm run eject`
+- モジュールインストール
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```Bash
+npm ci
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 起動方法
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# 通常起動
+npm start
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# MSWを利用したモックで起動
+npm run mock
+```
 
-## Learn More
+## テストについて
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+work in progress
