@@ -33,7 +33,7 @@ jobs:
         run: npm ci
         working-directory: ${{ env.working-directory }}
       - name: build
-        run: npm run build:mock --if-present
+        run: npm run build:mock --if-present && npx msw init https://wadabee.github.io/todo-app/
         working-directory: ${{ env.working-directory }}
       #     - run: npm test
       - name: deploy
