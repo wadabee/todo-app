@@ -4,16 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { SetupWorkerApi } from 'msw';
 
 if (process.env.REACT_APP_USE_MOCK === 'true') {
-  const { worker } = require('./mocks/browser');
+  const { worker } = require('./mocks/browser') as { worker: SetupWorkerApi };
   worker.start({
     serviceWorker: {
-      options: {
-        // Narrow the scope of the Service Worker to intercept requests
-        // only from pages under this path.
-        scope: '/todo-app/',
-      },
+      url: 'https://wadabee.github.io/todo-app/',
     },
   });
 }
