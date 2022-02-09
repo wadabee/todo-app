@@ -10,7 +10,7 @@ if (process.env.REACT_APP_USE_MOCK === 'true') {
   const { worker } = require('./mocks/browser') as { worker: SetupWorkerApi };
   let options: StartOptions = {};
 
-  if (process.env.RESCT_APP_GH_PAGES === 'true') {
+  if (process.env.REACT_APP_GH_PAGES === 'true') {
     options = {
       serviceWorker: {
         url: 'https://wadabee.github.io/todo-app/mockServiceWorker.js',
