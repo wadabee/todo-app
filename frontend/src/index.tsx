@@ -7,7 +7,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 if (process.env.REACT_APP_USE_MOCK === 'true') {
   const { worker } = require('./mocks/browser');
-  worker.start();
+  worker.start({
+    serviceWorker: {
+      options: {
+        // Narrow the scope of the Service Worker to intercept requests
+        // only from pages under this path.
+        scope: '/todo-app',
+      },
+    },
+  });
 }
 
 ReactDOM.render(
