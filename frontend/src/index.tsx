@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { SetupWorkerApi, StartOptions } from 'msw';
 
+console.log(process.env)
+
 if (process.env.REACT_APP_USE_MOCK === 'true') {
   const { worker } = require('./mocks/browser') as { worker: SetupWorkerApi };
   let options: StartOptions = {};
