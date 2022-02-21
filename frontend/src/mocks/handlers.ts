@@ -1,5 +1,5 @@
 // src/mocks/handlers.js
-import { User, UserPostParams } from '@backend/types/User';
+import { User, UserPostParams } from '@backend/@types/User';
 import { rest } from 'msw';
 
 const users: User[] = [

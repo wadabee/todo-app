@@ -1,4 +1,4 @@
-import { User } from '@backend/types/User';
+import { User } from '@backend/@types/User';
 import React from 'react';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 

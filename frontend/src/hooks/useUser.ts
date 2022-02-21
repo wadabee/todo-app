@@ -1,4 +1,4 @@
-import { User } from '@backend/types/User';
+import { User } from '@backend/@types/User';
 import UserApi from 'src/api/User';
 import { mutate } from 'swr';
 

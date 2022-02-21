@@ -1,4 +1,4 @@
-import { User } from '@backend/types/User';
+import { User } from '@backend/@types/User';
 import { Grid } from '@mui/material';
 import React from 'react';
 import CardUser from './CardUser';

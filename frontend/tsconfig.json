@@ -8,8 +8,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@backend/types/*":[
-        "../backend/src/types/*"
+      "@backend/@types/*":[
+        "../backend/src/@types/*"
       ]
     },
     "allowJs": true,

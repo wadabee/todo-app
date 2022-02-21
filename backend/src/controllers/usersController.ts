@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import { Body, Controller, Get, Path, Post, Response, Route, Tags } from 'tsoa';
 import UserService from '../services/users';
-import { UserPostParams } from '../types/User';
+import { UserPostParams } from '../@types/User';
 @Route('users')
 @Tags('Users')
 export class UsersController extends Controller {

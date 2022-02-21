@@ -1,4 +1,4 @@
-import { User, UserPostParams } from '@backend/types/User';
+import { User, UserPostParams } from '@backend/@types/User';
 import { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { fetcher, ApiResponse, post } from './ApiUtils';

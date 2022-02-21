@@ -4,7 +4,7 @@ import { USER_1, USER_2 } from '../../../__tests__/data/users';
 import { toRequestBody } from '../../../__tests__/utils/assertHelper';
 import app from '../../app';
 import { prisma } from '../../repository/utils';
-import { UserPostParams } from '../../types/User';
+import { UserPostParams } from '../../@types/User';
 
 describe('usersController', () => {
   beforeAll(async () => {
