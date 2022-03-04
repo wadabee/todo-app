@@ -11,7 +11,7 @@ import SnackbarAlert from './components/SnackbarAlert';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <DrawerProvider>
         <AppBarMain />
         <AppDrawer />
@@ -24,7 +24,7 @@ function App() {
           <Route path="examples" element={<Examples />} />
         </Routes>
       </AlertProvider>
-    </div>
+    </>
   );
 }
 
