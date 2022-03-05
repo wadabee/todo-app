@@ -1,29 +1,24 @@
-import { Box, Card, Checkbox, Stack, Typography } from '@mui/material';
-import { blueGrey } from '@mui/material/colors';
-import DescriptionIcon from '@mui/icons-material/Description';
+import { Box, Card, TextField, Typography } from '@mui/material';
 import React from 'react';
 import StackTask from './StackTask';
+import { Todo } from '@backend/@types/Todo';
 
-type Props = {};
+type Props = {
+  todo: Todo;
+};
 
-const CardToDo: React.FC<Props> = () => {
-  const handleTaskClick = () => {
-    console.log('click');
-  };
-
+const CardToDo: React.FC<Props> = ({ todo }) => {
   return (
     <Card>
-      <Box sx={{ mx: 2, my: 1 }}>
-        <Typography variant="h6" component="div">
-          タスク2
-        </Typography>
+      <Box sx={{ px: 2, py: 1 }}>
+        <TextField
+          value={todo.title}
+          variant="standard"
+          fullWidth
+          InputProps={{ style: { fontSize: 25 } }}
+        />
+        <TextField hiddenLabel placeholder="メモ" multiline variant="standard" fullWidth />
       </Box>
-      {/* <Typography variant="body2">
-        <Card variant="outlined" sx={{ bgcolor: blueGrey[50] }}>
-          <Checkbox />
-          サブタスク1
-        </Card>
-      </Typography> */}
       <StackTask />
     </Card>
   );
