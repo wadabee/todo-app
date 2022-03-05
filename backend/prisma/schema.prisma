@@ -17,16 +17,18 @@ model User {
 }
 
 model Todo {
-  id    String  @id @default(uuid())
-  title String
-  note  String?
-  tasks Task[]  @relation("ChildTasks")
+  id        String  @id @default(uuid())
+  title     String
+  note      String?
+  completed Boolean @default(false)
+  tasks     Task[]  @relation("ChildTasks")
 }
 
 model Task {
-  id     String  @id @default(uuid())
-  todo   Todo    @relation("ChildTasks", fields: [todoId], references: [id])
-  todoId String
-  title  String
-  note   String?
+  id        String  @id @default(uuid())
+  todo      Todo    @relation("ChildTasks", fields: [todoId], references: [id])
+  todoId    String
+  title     String
+  note      String?
+  completed Boolean @default(false)
 }

@@ -6,6 +6,45 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"Todo": {
+				"properties": {
+					"completed": {
+						"type": "boolean"
+					},
+					"note": {
+						"type": "string",
+						"nullable": true
+					},
+					"title": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"completed",
+					"note",
+					"title",
+					"id"
+				],
+				"type": "object",
+				"description": "Model Todo"
+			},
+			"TodoPostParams": {
+				"properties": {
+					"note": {
+						"type": "string"
+					},
+					"title": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"title"
+				],
+				"type": "object"
+			},
 			"User": {
 				"properties": {
 					"name": {
@@ -52,6 +91,65 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/todo": {
+			"get": {
+				"operationId": "GetAllTodos",
+				"responses": {
+					"200": {
+						"description": "ToDo配列",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Todo"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "全ToDoを取得する",
+				"summary": "全ToDo取得",
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateTodo",
+				"responses": {
+					"200": {
+						"description": "登録したToDo",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Todo"
+								}
+							}
+						}
+					}
+				},
+				"description": "ToDo登録",
+				"summary": "ToDo登録",
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TodoPostParams"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/users": {
 			"get": {
 				"operationId": "GetAllUsers",
