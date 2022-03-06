@@ -18,6 +18,10 @@ const TodoApi = {
     return ApiUtils.put<TodoPutParams, Todo>(`/todo/${todoId}`, params);
   },
 
+  deleteTodo: (todoId: string): Promise<Todo> => {
+    return ApiUtils.delete(`/todo/${todoId}`);
+  },
+
   mutateTodos: () => {
     return mutate<Todo[]>('/todo');
   },

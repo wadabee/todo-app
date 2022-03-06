@@ -19,11 +19,16 @@ const useTodo = () => {
     return TodoApi.updateTodo(todoId, params);
   };
 
+  const deleteTodo = (todoId: string) => {
+    return TodoApi.deleteTodo(todoId);
+  };
+
   return {
     getAllTodos,
     mutateTodos,
     registerTodo,
     updateTodo,
+    deleteTodo,
   };
 };
 

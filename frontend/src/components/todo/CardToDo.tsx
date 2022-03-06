@@ -10,7 +10,7 @@ type Props = {
 };
 
 const CardToDo: React.FC<Props> = ({ todo }) => {
-  const { updateTodo, mutateTodos } = useTodo();
+  const { updateTodo, mutateTodos, deleteTodo } = useTodo();
   const [title, setTitle] = useState<string>(todo.title);
   const [note, setNote] = useState<string>(todo.note ?? '');
 
@@ -27,7 +27,9 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
   };
 
   const handleDelete = () => {
-    console.log('DELETE');
+    deleteTodo(todo.id).then(() => {
+      mutateTodos();
+    });
   };
 
   return (
