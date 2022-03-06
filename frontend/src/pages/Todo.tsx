@@ -31,7 +31,7 @@ const Todo: React.FC = () => {
           size="medium"
           color="primary"
           sx={{
-            position: 'absolute',
+            position: 'fixed',
             bottom: 16,
             right: 16,
           }}
