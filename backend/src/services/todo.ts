@@ -1,8 +1,15 @@
-import { CreateTodoParams, Todo, UpdateTodoParams } from '../@types/Todo';
+import {
+  AddTaskParams,
+  CreateTodoParams,
+  Task,
+  Todo,
+  TodoAndTask,
+  UpdateTodoParams,
+} from '../@types/Todo';
 import todoRepo from '../repository/todo';
 
 class TodoService {
-  public getAllTodos(): Promise<Todo[]> {
+  public getAllTodos(): Promise<TodoAndTask[]> {
     return todoRepo.getAllTodo();
   }
 
@@ -16,6 +23,10 @@ class TodoService {
 
   public deleteTodo(todoId: string): Promise<Todo> {
     return todoRepo.deleteTodo(todoId);
+  }
+
+  public addTask(params: AddTaskParams): Promise<Task> {
+    return todoRepo.addTask(params);
   }
 }
 

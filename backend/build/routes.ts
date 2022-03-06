@@ -31,6 +31,21 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"Partial_TodoPostParams_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_AddTaskParams.Exclude_keyofAddTaskParams.todoId__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string","required":true},"note":{"dataType":"string"}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_AddTaskParams.todoId_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_AddTaskParams.Exclude_keyofAddTaskParams.todoId__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TaskPostParams": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_AddTaskParams.todoId_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "User": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string","required":true},"createdAt":{"dataType":"datetime","required":true},"id":{"dataType":"double","required":true}},"validators":{}},
@@ -137,6 +152,30 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.deleteTodo.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/todo/:todoId/task',
+
+            function TodoController_addTask(request: any, response: any, next: any) {
+            const args = {
+                    todoId: {"in":"path","name":"todoId","required":true,"dataType":"string"},
+                    params: {"in":"body","name":"params","required":true,"ref":"TaskPostParams"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TodoController();
+
+
+              const promise = controller.addTask.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

@@ -1,9 +1,16 @@
-import { CreateTodoParams, UpdateTodoParams } from '../@types/Todo';
+import {
+  AddTaskParams,
+  CreateTodoParams,
+  UpdateTodoParams,
+} from '../@types/Todo';
 import { prisma } from './utils';
 
 const TodoRepo = {
   getAllTodo: () => {
     return prisma.todo.findMany({
+      include: {
+        tasks: true,
+      },
       orderBy: [
         {
           id: 'asc',
@@ -37,6 +44,16 @@ const TodoRepo = {
     return prisma.todo.delete({
       where: {
         id: todoId,
+      },
+    });
+  },
+
+  addTask: ({ todoId, title, note }: AddTaskParams) => {
+    return prisma.task.create({
+      data: {
+        todoId,
+        title,
+        note,
       },
     });
   },

@@ -10,7 +10,12 @@ import {
   Route,
   Tags,
 } from 'tsoa';
-import { TodoPostParams, TodoPutParams } from '../@types/Todo';
+import {
+  TaskPostParams,
+  TodoAndTask,
+  TodoPostParams,
+  TodoPutParams,
+} from '../@types/Todo';
 import TodoService from '../services/todo';
 @Route('todo')
 @Tags('Todo')
@@ -23,7 +28,7 @@ export class TodoController extends Controller {
    * @returns ToDo配列
    */
   @Get('')
-  public getAllTodos(): Promise<Todo[]> {
+  public getAllTodos(): Promise<TodoAndTask[]> {
     return this.todoService.getAllTodos();
   }
 
@@ -63,5 +68,22 @@ export class TodoController extends Controller {
   @Delete('{todoId}')
   public deleteTodo(@Path() todoId: string): Promise<Todo> {
     return this.todoService.deleteTodo(todoId);
+  }
+
+  /**
+   * タスクの登録
+   * @summary 指定のToDoにタスクを登録する
+   * @param TaskPostParams
+   * @returns 登録したタスク
+   */
+  @Post('{todoId}/task')
+  public addTask(
+    @Path() todoId: string,
+    @Body() params: TaskPostParams
+  ): Promise<Todo> {
+    return this.todoService.addTask({
+      todoId,
+      ...params,
+    });
   }
 }
