@@ -15,6 +15,7 @@ import {
   TodoAndTask,
   TodoPostParams,
   TodoPutParams,
+  TaskPutParams,
 } from '../@types/Todo';
 import TodoService from '../services/todo';
 @Route('todo')
@@ -85,5 +86,32 @@ export class TodoController extends Controller {
       todoId,
       ...params,
     });
+  }
+
+  /**
+   * タスクの更新
+   * @summary タスクを更新する
+   * @param TaskPutParams
+   * @returns 更新したタスク
+   */
+  @Post('/task/{taskId}')
+  public updateTask(
+    @Path() taskId: string,
+    @Body() params: TaskPutParams
+  ): Promise<Todo> {
+    return this.todoService.updateTask({
+      id: taskId,
+      ...params,
+    });
+  }
+
+  /**
+   * タスクの削除
+   * @summary タスクを削除する
+   * @returns 更新したタスク
+   */
+  @Delete('/task/{taskId}')
+  public deleteTask(@Path() taskId: string): Promise<Todo> {
+    return this.todoService.deleteTask(taskId);
   }
 }

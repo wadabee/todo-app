@@ -1,6 +1,7 @@
 import {
   AddTaskParams,
   CreateTodoParams,
+  UpdateTaskParams,
   UpdateTodoParams,
 } from '../@types/Todo';
 import { prisma } from './utils';
@@ -28,7 +29,7 @@ const TodoRepo = {
     });
   },
 
-  updateTodo: ({ id, title, note }: UpdateTodoParams) => {
+  updateTodo: ({ id, title, note, completed }: UpdateTodoParams) => {
     return prisma.todo.update({
       where: {
         id,
@@ -36,6 +37,7 @@ const TodoRepo = {
       data: {
         title,
         note,
+        completed,
       },
     });
   },
@@ -54,6 +56,27 @@ const TodoRepo = {
         todoId,
         title,
         note,
+      },
+    });
+  },
+
+  updateTask: ({ id, title, note, completed }: UpdateTaskParams) => {
+    return prisma.task.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        note,
+        completed,
+      },
+    });
+  },
+
+  deleteTask: (id: string) => {
+    return prisma.task.delete({
+      where: {
+        id,
       },
     });
   },

@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardActionArea,
   Checkbox,
@@ -12,6 +13,7 @@ import { blue, blueGrey } from '@mui/material/colors';
 import DescriptionIcon from '@mui/icons-material/Description';
 import React, { useState } from 'react';
 import { Task } from '@backend/@types/Todo';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
   task: Task;
@@ -31,6 +33,8 @@ const StackTask: React.FC<Props> = ({ task }) => {
     }
   };
 
+  const handleUpdateTask = () => {};
+
   const handleCheckboxClick = () => {
     clickOther = true;
 
@@ -49,17 +53,24 @@ const StackTask: React.FC<Props> = ({ task }) => {
             </Fade>
           ) : null}
         </Stack>
+
         <Collapse in={selected}>
-          <TextField
-            sx={{ ml: 5 }}
-            value={note}
-            placeholder="メモ"
-            multiline
-            variant="standard"
-            fullWidth
-            onChange={(e) => setNote(e.target.value)}
-            onClick={handleCheckboxClick}
-          />
+          <Stack direction="row" justifyContent="flex-start" alignItems="center">
+            <TextField
+              sx={{ ml: 5 }}
+              value={note}
+              placeholder="メモ"
+              multiline
+              variant="standard"
+              fullWidth
+              onChange={(e) => setNote(e.target.value)}
+              onClick={handleCheckboxClick}
+            />
+
+            <Button>
+              <DeleteIcon color="error" />
+            </Button>
+          </Stack>
         </Collapse>
       </CardActionArea>
     </Card>
