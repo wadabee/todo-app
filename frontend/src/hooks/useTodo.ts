@@ -7,8 +7,8 @@ const useTodo = () => {
     return TodoApi.getAllTodos();
   };
 
-  const mutateTodos = (todo: Todo) => {
-    return mutate<Todo[]>('/todo', [todo]);
+  const mutateTodos = () => {
+    return TodoApi.mutateTodos();
   };
 
   const registerTodo = (params: TodoPostParams) => {

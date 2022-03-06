@@ -10,8 +10,8 @@ type Props = {
 
 const CardToDo: React.FC<Props> = ({ todo }) => {
   const { updateTodo, mutateTodos } = useTodo();
-  const [title, setTitle] = useState(todo.title);
-  const [note, setNote] = useState(todo.note);
+  const [title, setTitle] = useState<string>(todo.title);
+  const [note, setNote] = useState<string>(todo.note ?? '');
 
   const handleUpdateTodo = () => {
     if (todo.title === title && todo.note === note) {
@@ -20,8 +20,8 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
     updateTodo(todo.id, {
       title: title,
       note: note ?? '',
-    }).then((updatedTodo) => {
-      mutateTodos(updatedTodo);
+    }).then(() => {
+      mutateTodos();
     });
   };
 

@@ -1,6 +1,6 @@
 import { Todo, TodoPostParams, TodoPutParams } from '@backend/@types/Todo';
 import { AxiosError } from 'axios';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { fetcher, ApiResponse, post, put } from './ApiUtils';
 
 const TodoApi = {
@@ -15,6 +15,10 @@ const TodoApi = {
 
   updateTodo: (todoId: string, params: TodoPutParams) => {
     return put<TodoPutParams, Todo>(`/todo/${todoId}`, params);
+  },
+
+  mutateTodos: () => {
+    return mutate<Todo[]>('/todo');
   },
 };
 

@@ -11,7 +11,7 @@ const Todo: React.FC = () => {
     registerTodo({
       title: '新しいToDo',
     }).then((data) => {
-      mutateTodos(data);
+      mutateTodos();
     });
   };
 
