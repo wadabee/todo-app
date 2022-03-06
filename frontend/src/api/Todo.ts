@@ -1,5 +1,6 @@
 import {
   TaskPostParams,
+  TaskPutParams,
   Todo,
   TodoAndTask,
   TodoPostParams,
@@ -33,6 +34,14 @@ const TodoApi = {
 
   addTask: (todoId: string, params: TaskPostParams) => {
     return ApiUtils.post(`/todo/${todoId}/task`, params);
+  },
+
+  updateTask: (taskId: string, params: TaskPutParams) => {
+    return ApiUtils.put(`/todo/task/${taskId}`, params);
+  },
+
+  deleteTask: (taskId: string) => {
+    return ApiUtils.delete(`/todo/task/${taskId}`);
   },
 
   mutateTodos: () => {

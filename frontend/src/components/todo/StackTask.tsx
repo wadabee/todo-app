@@ -14,6 +14,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import React, { useState } from 'react';
 import { Task } from '@backend/@types/Todo';
 import DeleteIcon from '@mui/icons-material/Delete';
+import useTodo from 'src/hooks/useTodo';
 
 type Props = {
   task: Task;
@@ -22,6 +23,7 @@ type Props = {
 const StackTask: React.FC<Props> = ({ task }) => {
   let clickOther = false;
 
+  const { deleteTask, mutateTodos } = useTodo();
   const [selected, setSelected] = useState(false);
   const [note, setNote] = useState<string>(task.note ?? '');
 
@@ -39,6 +41,12 @@ const StackTask: React.FC<Props> = ({ task }) => {
     clickOther = true;
 
     console.log('checkbox');
+  };
+
+  const handleDelete = () => {
+    deleteTask(task.id).then(() => {
+      mutateTodos();
+    });
   };
 
   return (
@@ -67,7 +75,7 @@ const StackTask: React.FC<Props> = ({ task }) => {
               onClick={handleCheckboxClick}
             />
 
-            <Button>
+            <Button onClick={handleDelete}>
               <DeleteIcon color="error" />
             </Button>
           </Stack>
