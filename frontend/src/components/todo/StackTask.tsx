@@ -11,13 +11,17 @@ import {
 import { blue, blueGrey } from '@mui/material/colors';
 import DescriptionIcon from '@mui/icons-material/Description';
 import React, { useState } from 'react';
+import { Task } from '@backend/@types/Todo';
 
-type Props = {};
+type Props = {
+  task: Task;
+};
 
-const StackTask: React.FC<Props> = () => {
+const StackTask: React.FC<Props> = ({ task }) => {
   let clickOther = false;
 
   const [selected, setSelected] = useState(false);
+  const [note, setNote] = useState<string>(task.note ?? '');
 
   const handleTaskClick = () => {
     if (!clickOther) {
@@ -38,18 +42,22 @@ const StackTask: React.FC<Props> = () => {
       <CardActionArea>
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox onClick={handleCheckboxClick} />
-          <Typography variant="body2">サブタスク2</Typography>
-          <Fade in={!selected}>
-            <DescriptionIcon fontSize="small" />
-          </Fade>
+          <Typography variant="body2">{task.title}</Typography>
+          {task.note && task.note !== '' ? (
+            <Fade in={!selected}>
+              <DescriptionIcon fontSize="small" sx={{ ml: 1 }} />
+            </Fade>
+          ) : null}
         </Stack>
         <Collapse in={selected}>
           <TextField
             sx={{ ml: 5 }}
+            value={note}
             placeholder="メモ"
             multiline
             variant="standard"
             fullWidth
+            onChange={(e) => setNote(e.target.value)}
             onClick={handleCheckboxClick}
           />
         </Collapse>

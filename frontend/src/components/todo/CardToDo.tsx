@@ -1,16 +1,17 @@
-import { Box, Card, Stack, TextField } from '@mui/material';
+import { Box, Button, Card, Grid, Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import StackTask from './StackTask';
-import { Todo } from '@backend/@types/Todo';
+import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
+import AddIcon from '@mui/icons-material/Add';
 
 type Props = {
-  todo: Todo;
+  todo: TodoAndTask;
 };
 
 const CardToDo: React.FC<Props> = ({ todo }) => {
-  const { updateTodo, mutateTodos, deleteTodo } = useTodo();
+  const { updateTodo, mutateTodos, deleteTodo, addTask } = useTodo();
   const [title, setTitle] = useState<string>(todo.title);
   const [note, setNote] = useState<string>(todo.note ?? '');
 
@@ -28,6 +29,14 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
 
   const handleDelete = () => {
     deleteTodo(todo.id).then(() => {
+      mutateTodos();
+    });
+  };
+
+  const handleAddTask = () => {
+    addTask(todo.id, {
+      title: '新規タスク',
+    }).then(() => {
       mutateTodos();
     });
   };
@@ -58,7 +67,17 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
           onChange={(e) => setNote(e.target.value)}
         />
       </Box>
-      <StackTask />
+
+      {todo.tasks.map((task) => (
+        <StackTask key={task.id} task={task} />
+      ))}
+
+      <Grid container direction="row" justifyContent="center" sx={{ my: 1 }}>
+        <Button variant="contained" size="small" color="primary" onClick={handleAddTask}>
+          <AddIcon />
+          タスクの追加
+        </Button>
+      </Grid>
     </Card>
   );
 };

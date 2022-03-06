@@ -1,4 +1,4 @@
-import { Todo, TodoPostParams, TodoPutParams } from '@backend/@types/Todo';
+import { TaskPostParams, Todo, TodoPostParams, TodoPutParams } from '@backend/@types/Todo';
 import TodoApi from 'src/api/Todo';
 import { mutate } from 'swr';
 
@@ -23,12 +23,17 @@ const useTodo = () => {
     return TodoApi.deleteTodo(todoId);
   };
 
+  const addTask = (todoId: string, params: TaskPostParams) => {
+    return TodoApi.addTask(todoId, params);
+  };
+
   return {
     getAllTodos,
     mutateTodos,
     registerTodo,
     updateTodo,
     deleteTodo,
+    addTask,
   };
 };
 

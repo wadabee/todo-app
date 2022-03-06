@@ -1,12 +1,21 @@
-import { Todo, TodoPostParams, TodoPutParams } from '@backend/@types/Todo';
+import {
+  TaskPostParams,
+  Todo,
+  TodoAndTask,
+  TodoPostParams,
+  TodoPutParams,
+} from '@backend/@types/Todo';
 import { AxiosError } from 'axios';
 import { ApiResponse } from 'src/@types/ApiUtils';
 import useSWR, { mutate } from 'swr';
 import ApiUtils from './ApiUtils';
 
 const TodoApi = {
-  getAllTodos: (): ApiResponse<Todo[]> => {
-    const { data, error } = useSWR<Todo[], AxiosError<Todo[]>>('/todo', ApiUtils.fetcher);
+  getAllTodos: (): ApiResponse<TodoAndTask[]> => {
+    const { data, error } = useSWR<TodoAndTask[], AxiosError<TodoAndTask[]>>(
+      '/todo',
+      ApiUtils.fetcher,
+    );
     return { data, error };
   },
 
@@ -22,8 +31,12 @@ const TodoApi = {
     return ApiUtils.delete(`/todo/${todoId}`);
   },
 
+  addTask: (todoId: string, params: TaskPostParams) => {
+    return ApiUtils.post(`/todo/${todoId}/task`, params);
+  },
+
   mutateTodos: () => {
-    return mutate<Todo[]>('/todo');
+    return mutate<TodoAndTask[]>('/todo');
   },
 };
 
