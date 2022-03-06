@@ -10,7 +10,7 @@ const Todo: React.FC = () => {
   const handleAdd = () => {
     registerTodo({
       title: '新しいToDo',
-    }).then((data) => {
+    }).then(() => {
       mutateTodos();
     });
   };
