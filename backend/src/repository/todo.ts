@@ -1,4 +1,4 @@
-import { CreateTodoParams } from '../@types/Todo';
+import { CreateTodoParams, UpdateTodoParams } from '../@types/Todo';
 import { prisma } from './utils';
 
 const TodoRepo = {
@@ -17,6 +17,18 @@ const TodoRepo = {
       data: {
         title: title,
         note: note,
+      },
+    });
+  },
+
+  updateTodo: ({ id, title, note }: UpdateTodoParams) => {
+    return prisma.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+        note,
       },
     });
   },

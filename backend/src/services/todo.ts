@@ -1,4 +1,4 @@
-import { CreateTodoParams, Todo } from '../@types/Todo';
+import { CreateTodoParams, Todo, UpdateTodoParams } from '../@types/Todo';
 import todoRepo from '../repository/todo';
 
 class TodoService {
@@ -8,6 +8,10 @@ class TodoService {
 
   public createTodo(params: CreateTodoParams): Promise<Todo> {
     return todoRepo.createTodo(params);
+  }
+
+  public updateTodo(params: UpdateTodoParams): Promise<Todo> {
+    return todoRepo.updateTodo(params);
   }
 }
 

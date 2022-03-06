@@ -12,7 +12,7 @@ describe('UserRepo', () => {
     });
   });
 
-  const { getAllTodo, createTodo } = TodoRepo;
+  const { getAllTodo, createTodo, updateTodo } = TodoRepo;
 
   describe('getAllTodo', () => {
     test('全ToDoが取得されること', async () => {
@@ -24,7 +24,7 @@ describe('UserRepo', () => {
   });
 
   describe('createTodo', () => {
-    test('ユーザが登録できること', async () => {
+    test('ToDoが登録できること', async () => {
       const actual = await createTodo({
         title: 'new-todo',
         note: 'new-note',
@@ -37,6 +37,45 @@ describe('UserRepo', () => {
       const finded = await prisma.todo.findUnique({
         where: {
           id: actual.id,
+        },
+      });
+      expect(actual).toEqual(finded);
+    });
+  });
+
+  describe('updateTodo', () => {
+    const testId = 'test001';
+    beforeAll(async () => {
+      await prisma.todo.create({
+        data: {
+          id: testId,
+          title: 'title',
+          note: 'note',
+        },
+      });
+    });
+
+    test('TodoのTitleが更新される', async () => {
+      const actual = await updateTodo({
+        id: testId,
+        title: 'title-updated',
+      });
+      const finded = await prisma.todo.findUnique({
+        where: {
+          id: testId,
+        },
+      });
+      expect(actual).toEqual(finded);
+    });
+
+    test('Todoのnoteが更新される', async () => {
+      const actual = await updateTodo({
+        id: testId,
+        note: 'note-updated',
+      });
+      const finded = await prisma.todo.findUnique({
+        where: {
+          id: testId,
         },
       });
       expect(actual).toEqual(finded);

@@ -20,7 +20,7 @@ const Todo: React.FC = () => {
       <Box sx={{ p: 3 }}>
         <Grid container spacing={2}>
           {todos?.map((todo) => (
-            <Grid key={todo.id} item xs={6}>
+            <Grid key={todo.id} item xs={12}>
               <CardToDo todo={todo} />
             </Grid>
           ))}

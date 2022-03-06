@@ -45,6 +45,21 @@
 				],
 				"type": "object"
 			},
+			"Partial_TodoPostParams_": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"note": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"TodoPutParams": {
+				"$ref": "#/components/schemas/Partial_TodoPostParams_"
+			},
 			"User": {
 				"properties": {
 					"name": {
@@ -144,6 +159,49 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/TodoPostParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/todo/{todoId}": {
+			"put": {
+				"operationId": "UpdateTodo",
+				"responses": {
+					"200": {
+						"description": "登録したToDo",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Todo"
+								}
+							}
+						}
+					}
+				},
+				"description": "ToDo更新",
+				"summary": "ToDo更新",
+				"tags": [
+					"Todo"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "todoId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TodoPutParams"
 							}
 						}
 					}
