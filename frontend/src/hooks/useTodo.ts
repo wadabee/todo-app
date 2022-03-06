@@ -1,4 +1,4 @@
-import { Todo, TodoPostParams } from '@backend/@types/Todo';
+import { Todo, TodoPostParams, TodoPutParams } from '@backend/@types/Todo';
 import TodoApi from 'src/api/Todo';
 import { mutate } from 'swr';
 
@@ -15,10 +15,15 @@ const useTodo = () => {
     return TodoApi.createTodo(params);
   };
 
+  const updateTodo = (todoId: string, params: TodoPutParams) => {
+    return TodoApi.updateTodo(todoId, params);
+  };
+
   return {
     getAllTodos,
     mutateTodos,
     registerTodo,
+    updateTodo,
   };
 };
 

@@ -24,3 +24,9 @@ export const post = <T, R = any>(
   data: T,
   cfg: AxiosRequestConfig | undefined = undefined,
 ): Promise<R> => axios_.post(url, data, cfg).then((res) => res.data);
+
+export const put = <T, R = any>(
+  url: string,
+  data: T,
+  cfg: AxiosRequestConfig | undefined = undefined,
+): Promise<R> => axios_.put(url, data, cfg).then((res) => res.data);
