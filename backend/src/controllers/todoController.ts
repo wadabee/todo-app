@@ -1,5 +1,15 @@
 import { Todo } from '@prisma/client';
-import { Body, Controller, Get, Path, Post, Put, Route, Tags } from 'tsoa';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Path,
+  Post,
+  Put,
+  Route,
+  Tags,
+} from 'tsoa';
 import { TodoPostParams, TodoPutParams } from '../@types/Todo';
 import TodoService from '../services/todo';
 @Route('todo')
@@ -43,5 +53,15 @@ export class TodoController extends Controller {
       id: todoId,
       ...params,
     });
+  }
+
+  /**
+   * ToDo削除
+   * @summary ToDo削除
+   * @returns 削除したToDo
+   */
+  @Delete('{todoId}')
+  public deleteTodo(@Path() todoId: string): Promise<Todo> {
+    return this.todoService.deleteTodo(todoId);
   }
 }

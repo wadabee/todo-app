@@ -13,6 +13,10 @@ class TodoService {
   public updateTodo(params: UpdateTodoParams): Promise<Todo> {
     return todoRepo.updateTodo(params);
   }
+
+  public deleteTodo(todoId: string): Promise<Todo> {
+    return todoRepo.deleteTodo(todoId);
+  }
 }
 
 export default TodoService;

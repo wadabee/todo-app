@@ -32,6 +32,14 @@ const TodoRepo = {
       },
     });
   },
+
+  deleteTodo: (todoId: string) => {
+    return prisma.todo.delete({
+      where: {
+        id: todoId,
+      },
+    });
+  },
 };
 
 export default TodoRepo;
