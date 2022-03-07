@@ -26,6 +26,7 @@ const StackTask: React.FC<Props> = ({ task }) => {
   const { deleteTask, mutateTodos, updateTask } = useTodo();
   const [selected, setSelected] = useState(false);
   const [note, setNote] = useState<string>(task.note ?? '');
+  const [completed, setCompleted] = useState<boolean>(task.completed);
 
   const handleTaskClick = () => {
     if (!clickOther) {
@@ -45,10 +46,14 @@ const StackTask: React.FC<Props> = ({ task }) => {
     }
   };
 
-  const handleCheckboxClick = () => {
+  const handleCheckboxClick = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     clickOther = true;
-
-    console.log('checkbox');
+    updateTask(task.id, {
+      completed: checked,
+    }).then(() => {
+      setCompleted(checked);
+      // mutateTodos();
+    });
   };
 
   const handleDelete = () => {
@@ -61,7 +66,7 @@ const StackTask: React.FC<Props> = ({ task }) => {
     <Card onClick={handleTaskClick} variant="outlined" sx={{ bgcolor: selected ? blue[50] : '' }}>
       <CardActionArea>
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
-          <Checkbox onClick={handleCheckboxClick} />
+          <Checkbox checked={completed} onChange={handleCheckboxClick} />
           <Typography variant="body2">{task.title}</Typography>
           {task.note && task.note !== '' ? (
             <Fade in={!selected}>
@@ -80,13 +85,12 @@ const StackTask: React.FC<Props> = ({ task }) => {
               variant="standard"
               fullWidth
               onChange={(e) => setNote(e.target.value)}
-              onClick={handleCheckboxClick}
               onBlur={handleUpdateTask}
             />
-
+            {/* 
             <Button onClick={handleDelete}>
               <DeleteIcon color="error" />
-            </Button>
+            </Button> */}
           </Stack>
         </Collapse>
       </CardActionArea>
