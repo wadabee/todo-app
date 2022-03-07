@@ -23,7 +23,7 @@ type Props = {
 const StackTask: React.FC<Props> = ({ task }) => {
   let clickOther = false;
 
-  const { deleteTask, mutateTodos } = useTodo();
+  const { deleteTask, mutateTodos, updateTask } = useTodo();
   const [selected, setSelected] = useState(false);
   const [note, setNote] = useState<string>(task.note ?? '');
 
@@ -35,7 +35,15 @@ const StackTask: React.FC<Props> = ({ task }) => {
     }
   };
 
-  const handleUpdateTask = () => {};
+  const handleUpdateTask = () => {
+    if (note !== task.note) {
+      updateTask(task.id, {
+        note,
+      }).then(() => {
+        mutateTodos();
+      });
+    }
+  };
 
   const handleCheckboxClick = () => {
     clickOther = true;
@@ -73,6 +81,7 @@ const StackTask: React.FC<Props> = ({ task }) => {
               fullWidth
               onChange={(e) => setNote(e.target.value)}
               onClick={handleCheckboxClick}
+              onBlur={handleUpdateTask}
             />
 
             <Button onClick={handleDelete}>

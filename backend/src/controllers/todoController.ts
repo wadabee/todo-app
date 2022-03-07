@@ -1,4 +1,3 @@
-import { Todo } from '@prisma/client';
 import {
   Body,
   Controller,
@@ -16,6 +15,7 @@ import {
   TodoPostParams,
   TodoPutParams,
   TaskPutParams,
+  Todo,
 } from '../@types/Todo';
 import TodoService from '../services/todo';
 @Route('todo')
@@ -94,7 +94,7 @@ export class TodoController extends Controller {
    * @param TaskPutParams
    * @returns 更新したタスク
    */
-  @Post('/task/{taskId}')
+  @Put('/task/{taskId}')
   public updateTask(
     @Path() taskId: string,
     @Body() params: TaskPutParams

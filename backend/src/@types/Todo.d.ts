@@ -1,7 +1,16 @@
-import { Todo as prismaTodo, Task as prismaTask } from '@prisma/client';
-
-export type Todo = prismaTodo;
-export type Task = prismaTask;
+export type Todo = {
+  id: string;
+  title: string;
+  note: string | null;
+  completed: boolean;
+};
+export type Task = {
+  id: string;
+  todoId: string;
+  title: string;
+  note: string | null;
+  completed: boolean;
+};
 
 export type TodoAndTask = Todo & {
   tasks: Task[];

@@ -16,6 +16,16 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"completed":{"dataType":"boolean","required":true},"note":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"title":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Task": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"completed":{"dataType":"boolean","required":true},"note":{"dataType":"union","subSchemas":[{"dataType":"string"},{"dataType":"enum","enums":[null]}],"required":true},"title":{"dataType":"string","required":true},"todoId":{"dataType":"string","required":true},"id":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TodoAndTask": {
+        "dataType": "refAlias",
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"Todo"},{"dataType":"nestedObjectLiteral","nestedProperties":{"tasks":{"dataType":"array","array":{"dataType":"refAlias","ref":"Task"},"required":true}}}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TodoPostParams": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"note":{"dataType":"string"},"title":{"dataType":"string","required":true}},"validators":{}},
@@ -28,7 +38,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "TodoPutParams": {
         "dataType": "refAlias",
-        "type": {"ref":"Partial_TodoPostParams_","validators":{}},
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"Partial_TodoPostParams_"},{"dataType":"nestedObjectLiteral","nestedProperties":{"completed":{"dataType":"boolean"}}}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_AddTaskParams.Exclude_keyofAddTaskParams.todoId__": {
@@ -44,6 +54,21 @@ const models: TsoaRoute.Models = {
     "TaskPostParams": {
         "dataType": "refAlias",
         "type": {"ref":"Omit_AddTaskParams.todoId_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_UpdateTaskParams.Exclude_keyofUpdateTaskParams.id__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"title":{"dataType":"string"},"note":{"dataType":"string"},"completed":{"dataType":"boolean"}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_UpdateTaskParams.id_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_UpdateTaskParams.Exclude_keyofUpdateTaskParams.id__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TaskPutParams": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_UpdateTaskParams.id_","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "User": {
@@ -176,6 +201,53 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.addTask.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/todo/task/:taskId',
+
+            function TodoController_updateTask(request: any, response: any, next: any) {
+            const args = {
+                    taskId: {"in":"path","name":"taskId","required":true,"dataType":"string"},
+                    params: {"in":"body","name":"params","required":true,"ref":"TaskPutParams"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TodoController();
+
+
+              const promise = controller.updateTask.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.delete('/todo/task/:taskId',
+
+            function TodoController_deleteTask(request: any, response: any, next: any) {
+            const args = {
+                    taskId: {"in":"path","name":"taskId","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new TodoController();
+
+
+              const promise = controller.deleteTask.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
