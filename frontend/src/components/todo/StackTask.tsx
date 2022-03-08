@@ -46,13 +46,16 @@ const StackTask: React.FC<Props> = ({ task }) => {
     }
   };
 
-  const handleCheckboxClick = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+  const handleCheckboxClick = () => {
     clickOther = true;
+  };
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setCompleted(checked);
     updateTask(task.id, {
       completed: checked,
-    }).then(() => {
-      setCompleted(checked);
-      // mutateTodos();
+    }).catch(() => {
+      setCompleted(!checked);
     });
   };
 
@@ -66,7 +69,12 @@ const StackTask: React.FC<Props> = ({ task }) => {
     <Card onClick={handleTaskClick} variant="outlined" sx={{ bgcolor: selected ? blue[50] : '' }}>
       <CardActionArea>
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
-          <Checkbox checked={completed} onChange={handleCheckboxClick} />
+          <Checkbox
+            checked={completed}
+            onClick={handleCheckboxClick}
+            onChange={handleCheck}
+            sx={{ zIndex: 100 }}
+          />
           <Typography variant="body2">{task.title}</Typography>
           {task.note && task.note !== '' ? (
             <Fade in={!selected}>
