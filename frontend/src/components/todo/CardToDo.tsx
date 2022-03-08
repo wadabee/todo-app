@@ -5,6 +5,7 @@ import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
 import AddIcon from '@mui/icons-material/Add';
+import TaskList from './TaskList';
 
 type Props = {
   todo: TodoAndTask;
@@ -71,6 +72,8 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
       {todo.tasks.map((task) => (
         <StackTask key={task.id} task={task} />
       ))}
+
+      <TaskList tasks={todo.tasks} />
 
       <Grid container direction="row" justifyContent="center" sx={{ my: 1 }}>
         <Button variant="contained" size="small" color="primary" onClick={handleAddTask}>
