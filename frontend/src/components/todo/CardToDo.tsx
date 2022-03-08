@@ -1,11 +1,12 @@
 import { Box, Button, Card, Grid, Stack, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import StackTask from './StackTask';
 import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
 import AddIcon from '@mui/icons-material/Add';
 import TaskList from './TaskList';
+import AccordionTask from './AccordionTask';
 
 type Props = {
   todo: TodoAndTask;
@@ -15,6 +16,12 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
   const { updateTodo, mutateTodos, deleteTodo, addTask } = useTodo();
   const [title, setTitle] = useState<string>(todo.title);
   const [note, setNote] = useState<string>(todo.note ?? '');
+  const [expanded, setExpanded] = useState<string | false>('');
+
+  const isExpanded = useCallback((taskId: string) => expanded === taskId, [expanded]);
+  const handleChange = (taskId: string, newExpanded: boolean) => {
+    setExpanded(newExpanded ? taskId : false);
+  };
 
   const handleUpdateTodo = () => {
     if (todo.title === title && todo.note === note) {
@@ -70,10 +77,16 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
       </Box>
 
       {todo.tasks.map((task) => (
-        <StackTask key={task.id} task={task} />
+        // <StackTask key={task.id} task={task} />
+        <AccordionTask
+          key={task.id}
+          task={task}
+          expanded={isExpanded(task.id)}
+          onChange={handleChange}
+        />
       ))}
 
-      <TaskList tasks={todo.tasks} />
+      {/* <TaskList tasks={todo.tasks} /> */}
 
       <Grid container direction="row" justifyContent="center" sx={{ my: 1 }}>
         <Button variant="contained" size="small" color="primary" onClick={handleAddTask}>
