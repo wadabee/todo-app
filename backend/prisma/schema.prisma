@@ -17,7 +17,7 @@ model User {
 }
 
 model Todo {
-  id        String  @id @default(uuid())
+  id        String  @id @default(cuid())
   title     String
   note      String?
   completed Boolean @default(false)
@@ -25,7 +25,7 @@ model Todo {
 }
 
 model Task {
-  id        String  @id @default(uuid())
+  id        String  @id @default(cuid())
   todo      Todo    @relation("ChildTasks", fields: [todoId], references: [id])
   todoId    String
   title     String

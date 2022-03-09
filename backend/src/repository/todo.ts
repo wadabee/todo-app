@@ -10,7 +10,16 @@ const TodoRepo = {
   getAllTodo: () => {
     return prisma.todo.findMany({
       include: {
-        tasks: true,
+        tasks: {
+          orderBy: [
+            {
+              completed: 'asc',
+            },
+            {
+              id: 'asc',
+            },
+          ],
+        },
       },
       orderBy: [
         {
