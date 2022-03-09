@@ -1,11 +1,9 @@
 import { Box, Button, Card, Grid, Stack, TextField } from '@mui/material';
 import React, { useCallback, useState } from 'react';
-import StackTask from './StackTask';
 import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
 import AddIcon from '@mui/icons-material/Add';
-import TaskList from './TaskList';
 import AccordionTask from './AccordionTask';
 
 type Props = {
@@ -77,7 +75,6 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
       </Box>
 
       {todo.tasks.map((task) => (
-        // <StackTask key={task.id} task={task} />
         <AccordionTask
           key={task.id}
           task={task}
@@ -85,8 +82,6 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
           onChange={handleChange}
         />
       ))}
-
-      {/* <TaskList tasks={todo.tasks} /> */}
 
       <Grid container direction="row" justifyContent="center" sx={{ my: 1 }}>
         <Button variant="contained" size="small" color="primary" onClick={handleAddTask}>

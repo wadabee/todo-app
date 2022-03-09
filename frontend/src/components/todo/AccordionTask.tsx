@@ -10,9 +10,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DeleteIcon from '@mui/icons-material/Delete';
+import useTodo from 'src/hooks/useTodo';
 
 type Props = {
   task: Task;
@@ -21,23 +22,80 @@ type Props = {
 };
 
 const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
+  let clickedOthers = false;
+
+  const { deleteTask, mutateTodos, updateTask } = useTodo();
+  const [title, setTitle] = useState<string>(task.title);
+  const [note, setNote] = useState<string>(task.note ?? '');
+  const [completed, setCompleted] = useState<boolean>(task.completed);
+
+  const handleAccordion = (newExpanded: boolean) => {
+    if (!clickedOthers) {
+      onChange(task.id, newExpanded);
+    } else {
+      clickedOthers = false;
+    }
+  };
+
+  const handleClickOthers = () => {
+    clickedOthers = true;
+  };
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setCompleted(checked);
+    updateTask(task.id, {
+      completed: checked,
+    }).catch(() => {
+      setCompleted(!checked);
+    });
+  };
+
+  const handleUpdateTask = () => {
+    if (title !== task.title || note !== task.note) {
+      updateTask(task.id, {
+        title,
+        note,
+      }).then(() => {
+        mutateTodos();
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    deleteTask(task.id).then(() => {
+      mutateTodos();
+    });
+  };
+
   return (
     <Accordion
       key={task.id}
       expanded={expanded}
-      onChange={(e, newExpanded) => onChange(task.id, newExpanded)}
+      onChange={(e, newExpanded) => handleAccordion(newExpanded)}
       disableGutters={true}
     >
       <AccordionSummary sx={{ ml: -1 }}>
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox
-            // checked={completed}
-            // onClick={handleCheckboxClick}
-            // onChange={handleCheck}
+            checked={completed}
+            onClick={handleClickOthers}
+            onChange={handleCheck}
             sx={{ height: '16px' }}
           />
-          <Typography>{task.title}</Typography>
-          {task.note && task.note !== '' ? (
+          {expanded ? (
+            <TextField
+              sx={{ width: '50vw' }}
+              value={title}
+              placeholder="タスク名"
+              variant="standard"
+              onClick={handleClickOthers}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={handleUpdateTask}
+            />
+          ) : (
+            <Typography>{task.title}</Typography>
+          )}
+          {note !== '' ? (
             <Fade in={!expanded}>
               <DescriptionIcon fontSize="small" sx={{ ml: 1 }} />
             </Fade>
@@ -46,19 +104,18 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
       </AccordionSummary>
       <AccordionDetails sx={{ mt: -1 }}>
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
-          {/* <Typography>{task.note}</Typography> */}
           <TextField
-            sx={{ ml: 5 }}
-            value={task.note}
+            sx={{ ml: 4 }}
+            value={note}
             placeholder="メモ"
             multiline
             variant="standard"
             fullWidth
-            // onChange={(e) => setNote(e.target.value)}
-            // onBlur={handleUpdateTask}
+            onChange={(e) => setNote(e.target.value)}
+            onBlur={handleUpdateTask}
           />
           <Button>
-            <DeleteIcon color="error" />
+            <DeleteIcon color="error" onClick={handleDelete} />
           </Button>
         </Stack>
       </AccordionDetails>
