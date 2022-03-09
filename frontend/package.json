@@ -29,7 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node --max_old_space_size=512 node_modules/.bin/react-scripts start",
     "mock": "cross-env REACT_APP_USE_MOCK=true react-scripts start",
     "build": "react-scripts build",
     "build:gh": "cross-env REACT_APP_GH_PAGES=true REACT_APP_USE_MOCK=true react-scripts build",
