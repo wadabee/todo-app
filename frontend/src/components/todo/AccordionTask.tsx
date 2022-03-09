@@ -45,9 +45,13 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
     setCompleted(checked);
     updateTask(task.id, {
       completed: checked,
-    }).catch(() => {
-      setCompleted(!checked);
-    });
+    })
+      .then(() => {
+        mutateTodos();
+      })
+      .catch(() => {
+        setCompleted(!checked);
+      });
   };
 
   const handleUpdateTask = () => {
