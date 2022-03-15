@@ -14,6 +14,7 @@ import React, { useCallback, useState } from 'react';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useTodo from 'src/hooks/useTodo';
+import { grey } from '@mui/material/colors';
 
 type Props = {
   task: Task;
@@ -77,8 +78,16 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
       expanded={expanded}
       onChange={(e, newExpanded) => handleAccordion(newExpanded)}
       disableGutters={true}
+      sx={{ bgcolor: completed ? grey[300] : '' }}
     >
-      <AccordionSummary sx={{ ml: -1 }}>
+      <AccordionSummary
+        sx={{
+          ml: -1,
+          '&.Mui-focusVisible': {
+            bgcolor: 'white',
+          },
+        }}
+      >
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox
             checked={completed}
