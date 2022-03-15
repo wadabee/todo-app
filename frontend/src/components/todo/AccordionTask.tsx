@@ -6,6 +6,7 @@ import {
   Button,
   Checkbox,
   Fade,
+  IconButton,
   Stack,
   TextField,
   Typography,
@@ -101,6 +102,7 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
               value={title}
               placeholder="タスク名"
               variant="standard"
+              disabled={completed}
               onClick={handleClickOthers}
               onChange={(e) => setTitle(e.target.value)}
               onBlur={handleUpdateTask}
@@ -124,12 +126,13 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
             multiline
             variant="standard"
             fullWidth
+            disabled={completed}
             onChange={(e) => setNote(e.target.value)}
             onBlur={handleUpdateTask}
           />
-          <Button>
-            <DeleteIcon color="error" onClick={handleDelete} />
-          </Button>
+          <IconButton disabled={completed} color="error" onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
         </Stack>
       </AccordionDetails>
     </Accordion>
