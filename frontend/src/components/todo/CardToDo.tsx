@@ -1,12 +1,12 @@
 import { Box, Button, Card, Grid, Icon, Stack, TextField } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
 import AddIcon from '@mui/icons-material/Add';
 import AccordionTask from './AccordionTask';
 import CircleIcon from '../icons/CircleIcon';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import IconCircleProgress from '../IconCircleProgress';
 
 type Props = {
   todo: TodoAndTask;
@@ -49,11 +49,18 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
     });
   };
 
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    setTimeout(() => {
+      setValue(value === 0 ? 10 : 0);
+    }, 1000);
+  }, [value]);
+
   return (
     <Card>
       <Box sx={{ px: 2, py: 1 }}>
-        <Stack direction="row" alignItems="center">
-          <CircleIcon fontSize="large" />
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <IconCircleProgress fontSize="large" value={value} />
           <TextField
             value={title}
             variant="standard"
