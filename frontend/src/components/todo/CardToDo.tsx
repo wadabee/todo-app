@@ -1,5 +1,5 @@
 import { Box, Button, Card, Grid, Icon, Stack, TextField } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
@@ -7,6 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AccordionTask from './AccordionTask';
 import CircleIcon from '../icons/CircleIcon';
 import IconCircleProgress from '../IconCircleProgress';
+import CircleProgressIcon from '../icons/CircleProgressIcon';
 
 type Props = {
   todo: TodoAndTask;
@@ -49,18 +50,18 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
     });
   };
 
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    setTimeout(() => {
-      setValue(value === 0 ? 10 : 0);
-    }, 1000);
-  }, [value]);
+  const completedRatio = useMemo<number>(() => {
+    if (todo.tasks.length === 0) return 0;
+
+    const countCompletedTask = todo.tasks.filter((task) => task.completed).length;
+    return Math.round((countCompletedTask / todo.tasks.length) * 100);
+  }, [todo.tasks]);
 
   return (
     <Card>
       <Box sx={{ px: 2, py: 1 }}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <IconCircleProgress fontSize="large" value={value} />
+          <CircleProgressIcon fontSize="large" value={completedRatio} color="primary" />
           <TextField
             value={title}
             variant="standard"

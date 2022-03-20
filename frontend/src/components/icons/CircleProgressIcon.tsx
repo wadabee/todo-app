@@ -16,7 +16,7 @@ const CircleProgressIcon: React.FC<Props> = (props) => {
         r="3.5"
         cx="12"
         cy="12"
-        fill-opacity={0}
+        fillOpacity={0}
         strokeWidth="7"
         stroke="currentColor"
         strokeDasharray={7 * Math.PI}
