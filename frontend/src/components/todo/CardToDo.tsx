@@ -5,8 +5,6 @@ import useTodo from 'src/hooks/useTodo';
 import MenuButtonTodo from './MenuButtonTodo';
 import AddIcon from '@mui/icons-material/Add';
 import AccordionTask from './AccordionTask';
-import CircleIcon from '../icons/CircleIcon';
-import IconCircleProgress from '../IconCircleProgress';
 import CircleProgressIcon from '../icons/CircleProgressIcon';
 
 type Props = {
