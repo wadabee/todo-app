@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import DescriptionIcon from '@mui/icons-material/Description';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useTodo from 'src/hooks/useTodo';
@@ -19,17 +19,22 @@ import { grey } from '@mui/material/colors';
 
 type Props = {
   task: Task;
+  disabled?: boolean;
   expanded: boolean;
   onChange: (taskId: string, newExpanded: boolean) => void;
 };
 
-const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
+const AccordionTask: React.FC<Props> = ({ task, disabled = false, expanded, onChange }) => {
   let clickedOthers = false;
 
   const { deleteTask, mutateTodos, updateTask } = useTodo();
   const [title, setTitle] = useState<string>(task.title);
   const [note, setNote] = useState<string>(task.note ?? '');
   const [completed, setCompleted] = useState<boolean>(task.completed);
+
+  const inputDisabled = useMemo<boolean>(() => {
+    return completed || disabled;
+  }, [completed, disabled]);
 
   const handleAccordion = (newExpanded: boolean) => {
     if (!clickedOthers) {
@@ -79,7 +84,7 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
       expanded={expanded}
       onChange={(e, newExpanded) => handleAccordion(newExpanded)}
       disableGutters={true}
-      sx={{ bgcolor: completed ? grey[300] : '' }}
+      sx={{ bgcolor: inputDisabled ? grey[300] : '' }}
     >
       <AccordionSummary
         sx={{
@@ -92,6 +97,7 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <Checkbox
             checked={completed}
+            disabled={disabled}
             onClick={handleClickOthers}
             onChange={handleCheck}
             sx={{ height: '16px' }}
@@ -102,7 +108,7 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
               value={title}
               placeholder="タスク名"
               variant="standard"
-              disabled={completed}
+              disabled={inputDisabled}
               onClick={handleClickOthers}
               onChange={(e) => setTitle(e.target.value)}
               onBlur={handleUpdateTask}
@@ -126,11 +132,11 @@ const AccordionTask: React.FC<Props> = ({ task, expanded, onChange }) => {
             multiline
             variant="standard"
             fullWidth
-            disabled={completed}
+            disabled={inputDisabled}
             onChange={(e) => setNote(e.target.value)}
             onBlur={handleUpdateTask}
           />
-          <IconButton disabled={completed} color="error" onClick={handleDelete}>
+          <IconButton disabled={inputDisabled} color="error" onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </Stack>

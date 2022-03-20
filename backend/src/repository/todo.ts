@@ -23,6 +23,9 @@ const TodoRepo = {
       },
       orderBy: [
         {
+          completed: 'asc',
+        },
+        {
           id: 'asc',
         },
       ],

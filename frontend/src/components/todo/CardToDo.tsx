@@ -1,4 +1,4 @@
-import { Box, Button, Card, Grid, Icon, Stack, TextField } from '@mui/material';
+import { Box, Button, Card, Grid, Icon, IconButton, Stack, TextField } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { TodoAndTask } from '@backend/@types/Todo';
 import useTodo from 'src/hooks/useTodo';
@@ -6,6 +6,8 @@ import MenuButtonTodo from './MenuButtonTodo';
 import AddIcon from '@mui/icons-material/Add';
 import AccordionTask from './AccordionTask';
 import CircleProgressIcon from '../icons/CircleProgressIcon';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { grey } from '@mui/material/colors';
 
 type Props = {
   todo: TodoAndTask;
@@ -15,6 +17,7 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
   const { updateTodo, mutateTodos, deleteTodo, addTask } = useTodo();
   const [title, setTitle] = useState<string>(todo.title);
   const [note, setNote] = useState<string>(todo.note ?? '');
+  const [completed, setCompleted] = useState<boolean>(todo.completed);
   const [expanded, setExpanded] = useState<string | false>('');
 
   const isExpanded = useCallback((taskId: string) => expanded === taskId, [expanded]);
@@ -27,9 +30,18 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
       return;
     }
     updateTodo(todo.id, {
-      title: title,
+      title,
       note: note ?? '',
     }).then(() => {
+      mutateTodos();
+    });
+  };
+
+  const handleUpdateCompleted = () => {
+    updateTodo(todo.id, {
+      completed: !completed,
+    }).then(() => {
+      setCompleted(!completed);
       mutateTodos();
     });
   };
@@ -56,10 +68,16 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
   }, [todo.tasks]);
 
   return (
-    <Card>
-      <Box sx={{ px: 2, py: 1 }}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <CircleProgressIcon fontSize="large" value={completedRatio} color="primary" />
+    <Card sx={{ bgcolor: completed ? grey[300] : '' }}>
+      <Box sx={{ py: 1 }}>
+        <Stack direction="row" alignItems="center">
+          <IconButton color="primary" size="large" onClick={() => handleUpdateCompleted()}>
+            {completed ? (
+              <CheckCircleIcon fontSize="large" />
+            ) : (
+              <CircleProgressIcon fontSize="large" value={completedRatio} />
+            )}
+          </IconButton>
           <TextField
             value={title}
             variant="standard"
@@ -72,6 +90,7 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
         </Stack>
 
         <TextField
+          sx={{ mx: 2 }}
           value={note}
           hiddenLabel
           placeholder="メモ"
@@ -87,17 +106,20 @@ const CardToDo: React.FC<Props> = ({ todo }) => {
         <AccordionTask
           key={task.id}
           task={task}
+          disabled={completed}
           expanded={isExpanded(task.id)}
           onChange={handleChange}
         />
       ))}
 
-      <Grid container direction="row" justifyContent="center" sx={{ my: 1 }}>
-        <Button variant="contained" size="small" color="primary" onClick={handleAddTask}>
-          <AddIcon />
-          タスクの追加
-        </Button>
-      </Grid>
+      {!completed ? (
+        <Grid container direction="row" justifyContent="center" sx={{ my: 1 }}>
+          <Button variant="contained" size="small" color="primary" onClick={handleAddTask}>
+            <AddIcon />
+            タスクの追加
+          </Button>
+        </Grid>
+      ) : null}
     </Card>
   );
 };
