@@ -20,8 +20,8 @@ Seamless ToDo application with SPA(Single Page Application).
   - Data table library
 - MSW
   - Mock service library
+#### For tests
 - Jest
-  - Testing framework
 
 ### Backend
 - TypeScript
@@ -35,3 +35,7 @@ Seamless ToDo application with SPA(Single Page Application).
   - Hotreload
 - Swagger, Redoc
   - API reference from OpenAPI definition
+#### For tests
+- Jest
+- Supertests
+  - API test library

@@ -1,118 +1,96 @@
-# バックエンド
+# Backend
+## Environments
 
-## 技術スタック
-
-### 開発技術
-
-- TypeScript
-- Express：Web アプリケーションフレームワーク
-- tsoa：OpenAPI 対応の Web アプリケーションフレームワーク（Express と組み合わせて利用）
-- Prisma：ORM + DB Migration
-- nodemon：ホットリロード用
-- Swagger + Redoc：API ドキュメントの自動生成
-
-### 実行環境
-
-- Docker + Docker Compose
-- PostgreSQL
-
-### テスト
-- Jest：テスティングフレームワーク
-- Supertest：APIテスト用
-
-## API ドキュメント
-
-開発環境を起動し、以下の URL へアクセス。  
-Swagger(API 実行可能) http://localhost:8000/docs  
-Redoc(見やすいレイアウト) http://localhost:8000/redoc
-
-## 開発環境作成
-
-### 前提条件
-
-以下がインストールされていること。
-
-- Node.js（nvm 経由でのインストールを推奨）
+### Requirements
+The following must be installed.
 - Docker
 - Docker Compose
+-  Node.js  
+  Recommend: Install via version manager tool for node.js (e.g. nvm, nodebrew, etc...)
 
-※Windows の場合は WSL2 推奨
+## API Reference
 
-### 初期設定
+Launch the application and access the following URL.   
+* Swagger(Executable API in Web pages) 
+  * http://localhost:8000/docs  
+* Redoc(Beautiful layout) 
+  * http://localhost:8000/redoc
 
-- モジュールインストール
+
+## Get started
+- Install node modules
 
 ```Bash
 npm ci
 ```
 
-- Prisma クライアント生成
+- Generate Prisma client.
 
 ```bash
 npx prisma generate
 ```
 
-### Docker の操作
+## Application Launch
+Applications are launched using Docker Compose.
 
-開発環境は Docker Compose を利用して起動すること。
-
-- 環境の起動
+- Start
 
 ```Bash
-# 環境立ち上げ（標準出力する場合は、-dを取る）
+# Launch（If without "-d" option, print stdout.）
 docker-compose up -d
 
-# 再ビルドして実行（node_modulesの更新を行った場合）
+# Rebuild and Launch（when updated node_modules）
 docker-compose up --build
 ```
 
-- 環境の停止
+- Stop
 
 ```bash
-# DBを初期化したくない場合
+# Don't initialize DB.
 docker-compose down
 
-# DBを初期化したい場合
+# Initialize DB.
 docker-compose down -v
 ```
 
-## PRISMA の操作
+## Operate Prisma
 
-- Migration の実行  
-  DDL を自動生成し、DB へ適用する。
+- DB Migration  
+  Generate DDL and apply to DB.
 
 ```Bash
 npx prisma migrate dev --name some_message
 ```
 
-- DB への適用  
-  既に Migration ファイルが存在する場合は、DB へ適用する。
+- Apply to DB
+  If a migration file already exists, only apply to DB.
 
 ```bash
 npx prisma db push
 ```
 
-## 動作確認
+### Helthcheck
 
 ```bash
-# DBのユーザデータ取得
+# Get user data from DB.
 curl -X GET http://localhost:8000/users
 
-# DBにユーザデータ追加
+# Register user to DB.
 curl -d "name=someName" -X POST http://localhost:8000/users
 
 ```
 
-## テストについて
+## Test
 
-### テストの事前準備
-npmのグローバル領域にCLIをインストール  
-※環境情報の切り替えを実施
+### Requirements
+Install dotenv-CLI in npm(global).  
+Used to switch env.
+
 ```bash
 npm install -g dotenv-cli
 ```
 
-### テスト方針
+### Test Strategy
 * APIテストはDBを利用して実施する（APIの実行結果を担保）
 * RepositoryのテストはDBを利用して実施する（意図しているDB操作ができていることを担保）
 * その他のテストはMockを活用しUnitレベルで確認  
