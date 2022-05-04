@@ -91,34 +91,42 @@ npm install -g dotenv-cli
 ```
 
 ### Test Strategy
-* APIテストはDBを利用して実施する（APIの実行結果を担保）
-* RepositoryのテストはDBを利用して実施する（意図しているDB操作ができていることを担保）
-* その他のテストはMockを活用しUnitレベルで確認  
+* API testing uses DB.
+  * Tests the results of API execution.
+* Repository testing uses DB.
+  * Tests the results of CRUD.
+* Unit tests uses Mock.
+  * Don't use DB.
 
-### 各テストの実行方法
-APIとRepositoryのテストは、Docker-ComposeによるDBの起動が必要なので注意。  
-PrismaのGenerate処理が失敗する場合は、`docker-compose down`でDBを初期化すること。  
-DBはVolumeを利用していないため、コンテナを削除する度に削除されるので注意。  
+### Run Tests
+
+*NOTE*
+* If Prisma Generate fails, initialize the DB with `docker-compose down`.    
+* Docker is not using Volume, DB will be initialize when remove the container.    
+
 
 ```bash
-# テスト用のDB起動
-# DBマイグレーションでエラーになったら再度実行（DB起動が間に合っていない）
+# DB startup for testing.
+# If DB migration causes an error, run it again (DB startup is not in time).
 npm run docker:up:test
 
-# テスト用DBの初期化
+# Initialize DB for testing.
 npm run docker:restart:test
 
-# 実行時間：Unit < Repo < API < ALL
-# 全てのテストを実行（あらかじめDBを起動しておくこと）
+# Run All Tests.
+# Required: DB startup for testing.
+# Execution Time： Unit < Repo < API < ALL
 npm run test:all
 
-# DBを利用しないUnitテストを実行
+# Run Unit Tests.
 npm run test:unit
 
-# Repositoryのテストを実行（あらかじめDBを起動しておくこと）
+# Run Repository Tests.
+# Required: DB startup for testing.
 npm run test:repo
 
-# APIのテストを実行（あらかじめDBを起動しておくこと）
+# Run API Tests.
+# Required: DB startup for testing.
 npm run test:api
 
 ```
