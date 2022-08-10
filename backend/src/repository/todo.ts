@@ -55,11 +55,19 @@ const TodoRepo = {
   },
 
   deleteTodo: (todoId: string) => {
-    return prisma.todo.delete({
-      where: {
-        id: todoId,
-      },
-    });
+    return prisma.task
+      .deleteMany({
+        where: {
+          todoId,
+        },
+      })
+      .then(() => {
+        return prisma.todo.delete({
+          where: {
+            id: todoId,
+          },
+        });
+      });
   },
 
   addTask: ({ todoId, title, note }: AddTaskParams) => {
